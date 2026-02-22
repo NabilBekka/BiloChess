@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { useAuth } from '@/context/AuthContext';
+import PasswordInput from '@/components/PasswordInput';
 import styles from './Modal.module.css';
 
 export default function RegisterModal({ onClose, onSwitchToLogin, onForgotPassword }) {
@@ -81,7 +82,7 @@ export default function RegisterModal({ onClose, onSwitchToLogin, onForgotPasswo
           </div>
           <div className={styles.formGroup}>
             <label>Mot de passe</label>
-            <input className={`${styles.formInput} ${styles.formInputSm}`} type="password" placeholder="Minimum 8 caractères" value={form.password} onChange={(e) => update('password', e.target.value)} required />
+            <PasswordInput value={form.password} onChange={(e) => update('password', e.target.value)} placeholder="Minimum 8 caractères" className={`${styles.formInput} ${styles.formInputSm}`} required />
             <button type="button" className={styles.forgotLink} onClick={onForgotPassword}>
               Mot de passe oublié ?
             </button>

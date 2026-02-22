@@ -179,6 +179,37 @@
   gap: 12px;
 }
 
+/* ── Password input with eye toggle ── */
+.passwordWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.passwordWrapper input {
+  width: 100%;
+  padding-right: 44px;
+  box-sizing: border-box;
+}
+
+.eyeBtn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #bbb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  background: none;
+  border: none;
+}
+
+.eyeBtn:hover {
+  color: #666;
+  opacity: 1;
+}
+
 /* ── Forgot password link (sous chaque champ mot de passe) ── */
 .forgotLink {
   display: block;
@@ -252,6 +283,30 @@
   color: #fff;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
   transition: all 0.2s;
+}
+
+.deleteBtn {
+  width: 100%;
+  padding: 15px;
+  border-radius: 14px;
+  background: #dc2626;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(220, 38, 38, 0.25);
+  transition: all 0.2s;
+}
+
+.deleteBtn:hover {
+  background: #b91c1c;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(220, 38, 38, 0.3);
+}
+
+.deleteBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
 }
 
 .submitBtn:hover {

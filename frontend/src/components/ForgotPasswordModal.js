@@ -3,6 +3,7 @@
 import { useState, useRef } from 'react';
 import Image from 'next/image';
 import { useAuth } from '@/context/AuthContext';
+import PasswordInput from '@/components/PasswordInput';
 import styles from './Modal.module.css';
 
 export default function ForgotPasswordModal({ onClose, onBackToLogin }) {
@@ -150,7 +151,7 @@ export default function ForgotPasswordModal({ onClose, onBackToLogin }) {
             <p className={styles.subtitle}>Choisissez votre nouveau mot de passe</p>
             <div className={styles.formGroup}>
               <label>Nouveau mot de passe</label>
-              <input className={styles.formInput} type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} placeholder="Minimum 8 caractères" required />
+              <PasswordInput value={newPassword} onChange={(e) => setNewPassword(e.target.value)} placeholder="Minimum 8 caractères" className={styles.formInput} required />
             </div>
             {error && <div className={styles.inlineError}>{error}</div>}
             {success && <div className={styles.inlineSuccess}>{success}</div>}
