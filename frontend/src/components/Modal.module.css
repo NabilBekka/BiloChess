@@ -1,0 +1,383 @@
+/* ══════════════════════════════════════════
+   MODALS - Bilo Chess
+   ══════════════════════════════════════════ */
+
+/* ── Overlay ── */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+  backdrop-filter: blur(4px);
+}
+
+/* ── Modal Box ── */
+.modal {
+  background: #fff;
+  border-radius: 24px;
+  width: 100%;
+  max-width: 420px;
+  padding: 36px;
+  position: relative;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
+  animation: modalIn 0.25s ease;
+}
+
+.modalWide {
+  max-width: 460px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+/* ── Close & Back buttons ── */
+.closeBtn {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  font-size: 1.1rem;
+  color: #bbb;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.closeBtn:hover {
+  background: var(--bg-secondary);
+  color: #666;
+  opacity: 1;
+}
+
+.backBtn {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  color: var(--text-muted);
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.backBtn:hover {
+  background: var(--bg-secondary);
+  color: #666;
+  opacity: 1;
+}
+
+/* ── Modal Logo ── */
+.modalLogo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.modalLogoImage {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* ── Titles ── */
+.title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 6px;
+  color: var(--text-primary);
+}
+
+.subtitle {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  margin-bottom: 26px;
+}
+
+/* ── Google Button ── */
+.googleBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  padding: 14px 20px;
+  border: 1.5px solid var(--border-medium);
+  border-radius: 14px;
+  background: #fff;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #333;
+  transition: all 0.15s;
+}
+
+.googleBtn:hover {
+  border-color: #ccc;
+  background: var(--bg-secondary);
+  opacity: 1;
+}
+
+/* ── Divider ── */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 20px 0;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #eee;
+}
+
+.dividerText {
+  color: #ccc;
+  font-size: 0.78rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* ── Form ── */
+.formGroup {
+  margin-bottom: 14px;
+}
+
+.formGroup label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #777;
+  margin-bottom: 6px;
+}
+
+.formInput {
+  width: 100%;
+  padding: 13px 16px;
+  border: 2px solid #eee;
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: #333;
+  background: var(--bg-secondary);
+  box-sizing: border-box;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.formInputSm {
+  padding: 12px 14px;
+  font-size: 0.88rem;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* ── Links ── */
+.forgotLink {
+  display: block;
+  text-align: right;
+  margin-top: -6px;
+  margin-bottom: 14px;
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.forgotLink:hover {
+  opacity: 0.8;
+}
+
+/* ── Submit Button ── */
+.submitBtn {
+  width: 100%;
+  padding: 15px;
+  border-radius: 14px;
+  background: var(--text-primary);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+  transition: all 0.2s;
+}
+
+.submitBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.22);
+}
+
+.submitBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ── Modal Footer ── */
+.modalFooter {
+  margin-top: 24px;
+  padding-top: 22px;
+  border-top: 1px solid #f0f0f0;
+  text-align: center;
+}
+
+.modalFooter p {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  margin-bottom: 14px;
+}
+
+.createBtn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 14px;
+  border: 2px solid var(--text-primary) !important;
+  background: transparent;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+
+.createBtn:hover {
+  background: var(--text-primary);
+  color: #fff;
+  opacity: 1;
+}
+
+.switchLink {
+  color: var(--text-primary);
+  font-weight: 700;
+  font-size: 0.88rem;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* ── Password Requirements ── */
+.pwReqs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.pwReq {
+  font-size: 0.7rem;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.pwReqFail {
+  background: rgba(239, 68, 68, 0.08);
+  color: #e74c3c;
+}
+
+.pwReqPass {
+  background: rgba(16, 185, 129, 0.08);
+  color: #10b981;
+}
+
+/* ── Terms ── */
+.terms {
+  font-size: 0.7rem;
+  color: #bbb;
+  text-align: center;
+  line-height: 1.5;
+  margin-top: 14px;
+}
+
+.terms a {
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+/* ── Error message ── */
+.error {
+  background: rgba(239, 68, 68, 0.08);
+  color: #dc2626;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 14px;
+  text-align: center;
+}
+
+/* ── Success message ── */
+.success {
+  background: rgba(16, 185, 129, 0.08);
+  color: #059669;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 14px;
+  text-align: center;
+}
+
+/* ── Verify code inputs ── */
+.codeInputs {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin: 24px 0;
+}
+
+.codeInput {
+  width: 48px;
+  height: 56px;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  border: 2px solid #eee;
+  border-radius: var(--radius-md);
+  background: var(--bg-secondary);
+  font-family: var(--font-body);
+  outline: none;
+  transition: all 0.2s;
+}
+
+.codeInput:focus {
+  border-color: var(--text-primary) !important;
+  background: #fff !important;
+}
+
+/* ── Spinner ── */
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2.5px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+  display: inline-block;
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.96) translateY(8px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

@@ -1,0 +1,291 @@
+/* ══════════════════════════════════════════
+   HEADER - Bilo Chess
+   ══════════════════════════════════════════ */
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 32px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-light);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* ── Logo ── */
+.logoLink {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.logoImage {
+  height: 46px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* ── Right Section: Nav + Profile ── */
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.navLink {
+  padding: 9px 18px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  transition: color 0.2s;
+  border-radius: var(--radius-sm);
+  background: none;
+}
+
+.navLink:hover {
+  color: var(--text-primary);
+  opacity: 1;
+}
+
+.navLinkActive {
+  color: var(--text-primary);
+}
+
+.navSeparator {
+  width: 1px;
+  height: 20px;
+  background: var(--border-medium);
+  margin: 0 6px;
+}
+
+/* ── Profile Button (guest) ── */
+.profileBtn {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 22px;
+  border-radius: var(--radius-md);
+  background: var(--text-primary);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s;
+  margin-left: 4px;
+}
+
+.profileBtn:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+  transform: translateY(-1px);
+  opacity: 1;
+}
+
+/* ── User Section (logged in) ── */
+.userSection {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  margin-left: 4px;
+}
+
+.verifyAlert {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 10px;
+  background: rgba(245, 158, 11, 0.1);
+  color: #b45309;
+  font-size: 0.78rem;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.verifyAlert:hover {
+  background: rgba(245, 158, 11, 0.18);
+  opacity: 1;
+}
+
+.verifyAlertUrgent {
+  background: rgba(239, 68, 68, 0.1);
+  color: #dc2626;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.verifyAlertUrgent:hover {
+  background: rgba(239, 68, 68, 0.18);
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.greeting {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #444;
+}
+
+.avatarBtn {
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.avatarBtn:hover {
+  opacity: 1;
+}
+
+.avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #1a1a1a, #444);
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s;
+}
+
+.avatarBtn:hover .avatar {
+  transform: scale(1.05);
+}
+
+/* ── Dropdown ── */
+.dropdown {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  background: #fff;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  min-width: 260px;
+  overflow: hidden;
+  animation: fadeIn 0.2s ease;
+  border: 1px solid var(--border-light);
+}
+
+.dropdownHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: var(--bg-secondary);
+}
+
+.avatarSmall {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #1a1a1a, #444);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.userName {
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--text-primary);
+}
+
+.identifiant {
+  font-size: 0.75rem;
+  color: var(--text-primary);
+  font-weight: 600;
+  background: rgba(26, 26, 26, 0.08);
+  padding: 2px 8px;
+  border-radius: 10px;
+  width: fit-content;
+}
+
+.userEmail {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dropdownDivider {
+  height: 1px;
+  background: var(--bg-tertiary);
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 0.88rem;
+  color: #444;
+  text-align: left;
+  transition: background 0.15s;
+}
+
+.dropdownItem:hover {
+  background: var(--bg-secondary);
+  opacity: 1;
+}
+
+.logoutItem {
+  color: #c0392b;
+}
+
+.logoutItem:hover {
+  background: rgba(192, 57, 43, 0.05);
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .header {
+    padding: 10px 16px;
+  }
+
+  .logoImage {
+    height: 38px;
+  }
+
+  .navLink {
+    padding: 8px 12px;
+    font-size: 0.82rem;
+  }
+
+  .profileBtn {
+    padding: 9px 16px;
+    font-size: 0.82rem;
+  }
+
+  .greeting {
+    display: none;
+  }
+
+  .verifyAlert {
+    font-size: 0.7rem;
+    padding: 5px 10px;
+  }
+}

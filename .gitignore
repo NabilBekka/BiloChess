@@ -1,0 +1,41 @@
+# ══════════════════════════════════════════
+# BILO CHESS - .gitignore
+# ══════════════════════════════════════════
+
+# ── Dépendances (frontend/ et backend/) ──
+**/node_modules/
+
+# ── Variables d'environnement (secrets) ──
+# Ignore backend/.env, frontend/.env.local, etc.
+# Mais garde les .example (templates)
+**/.env
+**/.env*.local
+!**/.env.example
+!**/.env.local.example
+
+# ── Next.js (frontend/) ──
+**/.next/
+**/out/
+
+# ── Build ──
+**/build/
+**/dist/
+
+# ── Logs ──
+**/*.log
+**/npm-debug.log*
+
+# ── OS ──
+**/.DS_Store
+**/Thumbs.db
+
+# ── IDE ──
+.vscode/
+.idea/
+**/*.swp
+**/*.swo
+**/*~
+
+# ── Misc ──
+**/*.tsbuildinfo
+**/next-env.d.ts
