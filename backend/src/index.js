@@ -197,9 +197,11 @@ app.post('/api/auth/google', async (req, res) => {
     const result = await pool.query('SELECT * FROM users WHERE google_id = $1 OR email = $2', [googleId, email]);
 
     if (result.rows.length > 0) {
-      const user = result.rows[0];
+      let user = result.rows[0];
       if (!user.google_id) {
         await pool.query('UPDATE users SET google_id = $1, email_verified = true WHERE id = $2', [googleId, user.id]);
+        const updated = await pool.query('SELECT * FROM users WHERE id = $1', [user.id]);
+        user = updated.rows[0];
       }
       const token = generateToken(user);
       return res.json({ message: 'Connexion réussie', user: formatUser(user), token, isExistingUser: true });

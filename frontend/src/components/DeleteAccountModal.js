@@ -33,10 +33,8 @@ export default function DeleteAccountModal({ onClose, onForgotPassword, onDelete
   // ── Écran de confirmation ──
   if (deleted) {
     return (
-      <div className={styles.overlay} onClick={onDeleted}>
-        <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
-          <button className={styles.closeBtn} onClick={onDeleted}>✕</button>
-
+      <div className={styles.overlay}>
+        <div className={styles.modal}>
           <div className={styles.modalLogo}>
             <Image src="/logo.png" alt="Bilo Chess" width={140} height={50} className={styles.modalLogoImage} />
           </div>
@@ -48,7 +46,7 @@ export default function DeleteAccountModal({ onClose, onForgotPassword, onDelete
               Votre compte a bien été supprimé, on espère vous revoir bientôt.
             </p>
             <button className={styles.submitBtn} onClick={onDeleted}>
-              Retour à l'accueil
+              Revenir à la page d'accueil
             </button>
           </div>
         </div>
