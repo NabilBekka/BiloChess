@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import Header from '@/components/Header';
 import VerifyEmailModal from '@/components/VerifyEmailModal';
+import ForgotPasswordModal from '@/components/ForgotPasswordModal';
 import styles from './settings.module.css';
 
 export default function Settings() {
@@ -19,6 +20,7 @@ export default function Settings() {
   const [deleteMsg, setDeleteMsg] = useState({ type: '', text: '' });
   const [saving, setSaving] = useState(false);
   const [showVerifyEmail, setShowVerifyEmail] = useState(false);
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
 
   if (loading) return null;
   if (!user) { router.push('/'); return null; }
@@ -65,7 +67,7 @@ export default function Settings() {
   };
 
   const goToForgotPassword = () => {
-    router.push('/forgot-password');
+    setShowForgotPassword(true);
   };
 
   return (
@@ -121,9 +123,6 @@ export default function Settings() {
           <div className={styles.formGroup}>
             <label>Nouveau mot de passe (optionnel)</label>
             <input type="password" placeholder="Laisser vide pour ne pas changer" value={form.newPassword} onChange={(e) => setForm({ ...form, newPassword: e.target.value })} />
-            <button type="button" className={styles.forgotLink} onClick={goToForgotPassword}>
-              Mot de passe oublié ?
-            </button>
           </div>
           <hr className={styles.divider} />
           <div className={styles.formGroup}>
@@ -152,9 +151,6 @@ export default function Settings() {
           <div className={styles.formGroup}>
             <label>Mot de passe pour confirmer</label>
             <input type="password" placeholder="Votre mot de passe" value={form.deletePassword} onChange={(e) => setForm({ ...form, deletePassword: e.target.value })} />
-            <button type="button" className={styles.forgotLink} onClick={goToForgotPassword}>
-              Mot de passe oublié ?
-            </button>
           </div>
 
           {deleteMsg.text && (
@@ -170,6 +166,7 @@ export default function Settings() {
       </div>
 
       {showVerifyEmail && <VerifyEmailModal onClose={() => setShowVerifyEmail(false)} />}
+      {showForgotPassword && <ForgotPasswordModal onClose={() => setShowForgotPassword(false)} />}
     </main>
   );
 }

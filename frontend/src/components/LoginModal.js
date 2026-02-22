@@ -6,7 +6,7 @@ import { useGoogleLogin } from '@react-oauth/google';
 import { useAuth } from '@/context/AuthContext';
 import styles from './Modal.module.css';
 
-export default function LoginModal({ onClose, onSwitchToRegister, onGoogleRegister }) {
+export default function LoginModal({ onClose, onSwitchToRegister, onGoogleRegister, onForgotPassword }) {
   const { login, googleAuth } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -72,7 +72,7 @@ export default function LoginModal({ onClose, onSwitchToRegister, onGoogleRegist
           <div className={styles.formGroup}>
             <label>Mot de passe</label>
             <input className={styles.formInput} type="password" placeholder="••••••••" value={password} onChange={(e) => setPassword(e.target.value)} required />
-            <button type="button" className={styles.forgotLink} onClick={() => { onClose(); window.location.href = '/forgot-password'; }}>
+            <button type="button" className={styles.forgotLink} onClick={onForgotPassword}>
               Mot de passe oublié ?
             </button>
           </div>

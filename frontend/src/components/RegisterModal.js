@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useAuth } from '@/context/AuthContext';
 import styles from './Modal.module.css';
 
-export default function RegisterModal({ onClose, onSwitchToLogin }) {
+export default function RegisterModal({ onClose, onSwitchToLogin, onForgotPassword }) {
   const { register } = useAuth();
   const [form, setForm] = useState({
     firstname: '', lastname: '', username: '', birthDate: '', email: '', password: ''
@@ -82,7 +82,7 @@ export default function RegisterModal({ onClose, onSwitchToLogin }) {
           <div className={styles.formGroup}>
             <label>Mot de passe</label>
             <input className={`${styles.formInput} ${styles.formInputSm}`} type="password" placeholder="Minimum 8 caractères" value={form.password} onChange={(e) => update('password', e.target.value)} required />
-            <button type="button" className={styles.forgotLink} onClick={() => { onClose(); window.location.href = '/forgot-password'; }}>
+            <button type="button" className={styles.forgotLink} onClick={onForgotPassword}>
               Mot de passe oublié ?
             </button>
             <div className={styles.pwReqs}>

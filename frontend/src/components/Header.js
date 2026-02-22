@@ -8,6 +8,7 @@ import LoginModal from '@/components/LoginModal';
 import RegisterModal from '@/components/RegisterModal';
 import GoogleRegisterModal from '@/components/GoogleRegisterModal';
 import VerifyEmailModal from '@/components/VerifyEmailModal';
+import ForgotPasswordModal from '@/components/ForgotPasswordModal';
 import styles from './Header.module.css';
 
 export default function Header({ currentPage = 'home' }) {
@@ -17,6 +18,7 @@ export default function Header({ currentPage = 'home' }) {
   const [showRegister, setShowRegister] = useState(false);
   const [showGoogleRegister, setShowGoogleRegister] = useState(false);
   const [showVerifyEmail, setShowVerifyEmail] = useState(false);
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [googleData, setGoogleData] = useState(null);
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef(null);
@@ -45,9 +47,10 @@ export default function Header({ currentPage = 'home' }) {
   const daysRemaining = getDaysRemaining();
   const isLastDay = daysRemaining === 1 || daysRemaining === 0;
 
-  const openLogin = () => { setShowRegister(false); setShowGoogleRegister(false); setShowLogin(true); };
-  const openRegister = () => { setShowLogin(false); setShowGoogleRegister(false); setShowRegister(true); };
-  const closeModals = () => { setShowLogin(false); setShowRegister(false); setShowGoogleRegister(false); setShowVerifyEmail(false); setGoogleData(null); };
+  const openLogin = () => { setShowRegister(false); setShowGoogleRegister(false); setShowForgotPassword(false); setShowLogin(true); };
+  const openRegister = () => { setShowLogin(false); setShowGoogleRegister(false); setShowForgotPassword(false); setShowRegister(true); };
+  const openForgotPassword = () => { setShowLogin(false); setShowRegister(false); setShowGoogleRegister(false); setShowForgotPassword(true); };
+  const closeModals = () => { setShowLogin(false); setShowRegister(false); setShowGoogleRegister(false); setShowVerifyEmail(false); setShowForgotPassword(false); setGoogleData(null); };
   const handleGoogleRegister = (data) => { setShowLogin(false); setGoogleData(data); setShowGoogleRegister(true); };
 
   const handleLogout = () => {
@@ -150,10 +153,11 @@ export default function Header({ currentPage = 'home' }) {
         </div>
       </header>
 
-      {showLogin && <LoginModal onClose={closeModals} onSwitchToRegister={openRegister} onGoogleRegister={handleGoogleRegister} />}
-      {showRegister && <RegisterModal onClose={closeModals} onSwitchToLogin={openLogin} />}
-      {showGoogleRegister && googleData && <GoogleRegisterModal onClose={closeModals} googleData={googleData} />}
+      {showLogin && <LoginModal onClose={closeModals} onSwitchToRegister={openRegister} onGoogleRegister={handleGoogleRegister} onForgotPassword={openForgotPassword} />}
+      {showRegister && <RegisterModal onClose={closeModals} onSwitchToLogin={openLogin} onForgotPassword={openForgotPassword} />}
+      {showGoogleRegister && googleData && <GoogleRegisterModal onClose={closeModals} googleData={googleData} onForgotPassword={openForgotPassword} />}
       {showVerifyEmail && <VerifyEmailModal onClose={closeModals} />}
+      {showForgotPassword && <ForgotPasswordModal onClose={closeModals} onBackToLogin={openLogin} />}
     </>
   );
 }
