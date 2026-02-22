@@ -2,6 +2,120 @@
    HOME PAGE - Bilo Chess
    ══════════════════════════════════════════ */
 
+/* ── Welcome Screen (connecté) ── */
+.welcomeScreen {
+  min-height: calc(100vh - 72px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 32px;
+  background: #ffffff;
+}
+
+.welcomeLogo {
+  width: 240px;
+  max-width: 60vw;
+  height: auto;
+  object-fit: contain;
+  margin-bottom: 12px;
+}
+
+.welcomeTitle {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--text-primary);
+  margin-top: 24px;
+}
+
+.welcomeSub {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-top: 8px;
+}
+
+.welcomeActions {
+  display: flex;
+  gap: 16px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.welcomeBtn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 28px;
+  border-radius: var(--radius-lg);
+  background: #fff;
+  border: 1.5px solid var(--border-medium);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s;
+}
+
+.welcomeBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: #ccc;
+  opacity: 1;
+}
+
+.welcomeBtn span {
+  font-size: 1.3rem;
+}
+
+/* ── Goodbye Screen (déconnecté) ── */
+.goodbyeScreen {
+  min-height: calc(100vh - 72px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 32px;
+  background: #ffffff;
+}
+
+.goodbyeLogo {
+  width: 200px;
+  max-width: 50vw;
+  height: auto;
+  object-fit: contain;
+  margin-bottom: 12px;
+  opacity: 0.85;
+}
+
+.goodbyeTitle {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-top: 24px;
+  text-align: center;
+}
+
+.goodbyeBtn {
+  margin-top: 32px;
+  padding: 16px 36px;
+  border-radius: var(--radius-lg);
+  background: var(--text-primary);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.18);
+  transition: all 0.2s;
+}
+
+.goodbyeBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.22);
+  opacity: 1;
+}
+
 /* ── Hero ── */
 .hero {
   position: relative;
@@ -250,6 +364,19 @@
 
   .heroLogo {
     width: 240px;
+  }
+
+  .welcomeTitle {
+    font-size: 1.6rem;
+  }
+
+  .goodbyeTitle {
+    font-size: 1.4rem;
+  }
+
+  .welcomeActions {
+    flex-direction: column;
+    align-items: center;
   }
 
   .footerInner {

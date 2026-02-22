@@ -10,6 +10,7 @@ const AuthContext = createContext({});
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [justLoggedOut, setJustLoggedOut] = useState(false);
 
   useEffect(() => {
     checkAuth();
@@ -35,6 +36,7 @@ export function AuthProvider({ children }) {
       const res = await axios.post(`${API_URL}/auth/login`, { email, password });
       localStorage.setItem('token', res.data.token);
       setUser(res.data.user);
+      setJustLoggedOut(false);
       return { success: true };
     } catch (error) {
       return { success: false, error: error.response?.data?.error || 'Échec de la connexion' };
@@ -46,6 +48,7 @@ export function AuthProvider({ children }) {
       const res = await axios.post(`${API_URL}/auth/register`, data);
       localStorage.setItem('token', res.data.token);
       setUser(res.data.user);
+      setJustLoggedOut(false);
       return { success: true };
     } catch (error) {
       return { success: false, error: error.response?.data?.error || 'Échec de l\'inscription' };
@@ -58,6 +61,7 @@ export function AuthProvider({ children }) {
       if (res.data.isExistingUser) {
         localStorage.setItem('token', res.data.token);
         setUser(res.data.user);
+        setJustLoggedOut(false);
         return { success: true, isExistingUser: true };
       } else {
         return { success: true, isExistingUser: false, googleData: res.data.googleData };
@@ -72,6 +76,7 @@ export function AuthProvider({ children }) {
       const res = await axios.post(`${API_URL}/auth/google/register`, data);
       localStorage.setItem('token', res.data.token);
       setUser(res.data.user);
+      setJustLoggedOut(false);
       return { success: true };
     } catch (error) {
       return { success: false, error: error.response?.data?.error || 'Échec de la création' };
@@ -81,6 +86,11 @@ export function AuthProvider({ children }) {
   const logout = () => {
     localStorage.removeItem('token');
     setUser(null);
+    setJustLoggedOut(true);
+  };
+
+  const clearLogout = () => {
+    setJustLoggedOut(false);
   };
 
   const updateUser = async (data) => {
@@ -167,12 +177,12 @@ export function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider value={{
-      user, loading,
+      user, loading, justLoggedOut,
       login, register, googleAuth, googleRegister,
       updateUser, deleteAccount,
       sendVerificationCode, verifyEmail,
       forgotPassword, verifyResetCode, resetPassword,
-      logout
+      logout, clearLogout
     }}>
       {children}
     </AuthContext.Provider>

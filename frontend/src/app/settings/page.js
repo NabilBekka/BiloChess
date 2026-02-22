@@ -4,27 +4,30 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import Header from '@/components/Header';
+import VerifyEmailModal from '@/components/VerifyEmailModal';
 import styles from './settings.module.css';
 
 export default function Settings() {
-  const { user, updateUser, deleteAccount, logout, loading } = useAuth();
+  const { user, updateUser, deleteAccount, loading } = useAuth();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState('profile');
   const [form, setForm] = useState({
     firstname: '', lastname: '', username: '', email: '', birthDate: '',
     currentPassword: '', newPassword: '', deletePassword: ''
   });
-  const [message, setMessage] = useState({ type: '', text: '' });
+  const [updateMsg, setUpdateMsg] = useState({ type: '', text: '' });
+  const [deleteMsg, setDeleteMsg] = useState({ type: '', text: '' });
   const [saving, setSaving] = useState(false);
+  const [showVerifyEmail, setShowVerifyEmail] = useState(false);
 
   if (loading) return null;
   if (!user) { router.push('/'); return null; }
 
   const handleUpdate = async (e) => {
     e.preventDefault();
-    setMessage({ type: '', text: '' });
+    setUpdateMsg({ type: '', text: '' });
     if (!form.currentPassword) {
-      setMessage({ type: 'error', text: 'Mot de passe actuel requis' });
+      setUpdateMsg({ type: 'error', text: 'Mot de passe actuel requis' });
       return;
     }
     setSaving(true);
@@ -38,17 +41,18 @@ export default function Settings() {
 
     const result = await updateUser(data);
     if (result.success) {
-      setMessage({ type: 'success', text: 'Profil mis à jour !' });
+      setUpdateMsg({ type: 'success', text: 'Modifications enregistrées' });
       setForm({ ...form, currentPassword: '', newPassword: '' });
     } else {
-      setMessage({ type: 'error', text: result.error });
+      setUpdateMsg({ type: 'error', text: result.error });
     }
     setSaving(false);
   };
 
   const handleDelete = async () => {
+    setDeleteMsg({ type: '', text: '' });
     if (!form.deletePassword) {
-      setMessage({ type: 'error', text: 'Mot de passe requis pour supprimer' });
+      setDeleteMsg({ type: 'error', text: 'Mot de passe requis pour supprimer' });
       return;
     }
     if (!confirm('Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.')) return;
@@ -56,8 +60,12 @@ export default function Settings() {
     if (result.success) {
       router.push('/');
     } else {
-      setMessage({ type: 'error', text: result.error });
+      setDeleteMsg({ type: 'error', text: result.error });
     }
+  };
+
+  const goToForgotPassword = () => {
+    router.push('/forgot-password');
   };
 
   return (
@@ -67,12 +75,7 @@ export default function Settings() {
         <h1 className={styles.title}>Paramètres</h1>
         <p className={styles.subtitle}>Gérez votre compte Bilo Chess</p>
 
-        {message.text && (
-          <div className={`${styles.message} ${message.type === 'error' ? styles.messageError : styles.messageSuccess}`}>
-            {message.text}
-          </div>
-        )}
-
+        {/* ── Infos profil ── */}
         <div className={styles.card}>
           <div className={styles.infoRow}>
             <span className={styles.label}>Identifiant</span>
@@ -80,7 +83,13 @@ export default function Settings() {
           </div>
           <div className={styles.infoRow}>
             <span className={styles.label}>Email vérifié</span>
-            <span className={styles.value}>{user.emailVerified ? '✅ Oui' : '❌ Non'}</span>
+            {user.emailVerified ? (
+              <span className={styles.value}>✅ Oui</span>
+            ) : (
+              <button className={styles.verifyLink} onClick={() => setShowVerifyEmail(true)}>
+                Vérifier votre email
+              </button>
+            )}
           </div>
           <div className={styles.infoRow}>
             <span className={styles.label}>Inscrit le</span>
@@ -88,6 +97,7 @@ export default function Settings() {
           </div>
         </div>
 
+        {/* ── Modifier le profil ── */}
         <form className={styles.card} onSubmit={handleUpdate}>
           <h2 className={styles.cardTitle}>Modifier le profil</h2>
           <div className={styles.formRow}>
@@ -111,29 +121,55 @@ export default function Settings() {
           <div className={styles.formGroup}>
             <label>Nouveau mot de passe (optionnel)</label>
             <input type="password" placeholder="Laisser vide pour ne pas changer" value={form.newPassword} onChange={(e) => setForm({ ...form, newPassword: e.target.value })} />
+            <button type="button" className={styles.forgotLink} onClick={goToForgotPassword}>
+              Mot de passe oublié ?
+            </button>
           </div>
           <hr className={styles.divider} />
           <div className={styles.formGroup}>
             <label>Mot de passe actuel (requis)</label>
             <input type="password" placeholder="Votre mot de passe actuel" value={form.currentPassword} onChange={(e) => setForm({ ...form, currentPassword: e.target.value })} required />
+            <button type="button" className={styles.forgotLink} onClick={goToForgotPassword}>
+              Mot de passe oublié ?
+            </button>
           </div>
+
+          {updateMsg.text && (
+            <div className={updateMsg.type === 'error' ? styles.inlineError : styles.inlineSuccess}>
+              {updateMsg.text}
+            </div>
+          )}
+
           <button type="submit" className={styles.submitBtn} disabled={saving}>
             {saving ? 'Enregistrement...' : 'Enregistrer'}
           </button>
         </form>
 
+        {/* ── Zone dangereuse ── */}
         <div className={`${styles.card} ${styles.dangerCard}`}>
           <h2 className={styles.cardTitle} style={{ color: '#dc2626' }}>Zone dangereuse</h2>
           <p className={styles.dangerText}>La suppression de votre compte est irréversible. Toutes vos données seront perdues.</p>
           <div className={styles.formGroup}>
             <label>Mot de passe pour confirmer</label>
             <input type="password" placeholder="Votre mot de passe" value={form.deletePassword} onChange={(e) => setForm({ ...form, deletePassword: e.target.value })} />
+            <button type="button" className={styles.forgotLink} onClick={goToForgotPassword}>
+              Mot de passe oublié ?
+            </button>
           </div>
+
+          {deleteMsg.text && (
+            <div className={deleteMsg.type === 'error' ? styles.inlineError : styles.inlineSuccess}>
+              {deleteMsg.text}
+            </div>
+          )}
+
           <button type="button" className={styles.deleteBtn} onClick={handleDelete}>
             Supprimer mon compte
           </button>
         </div>
       </div>
+
+      {showVerifyEmail && <VerifyEmailModal onClose={() => setShowVerifyEmail(false)} />}
     </main>
   );
 }

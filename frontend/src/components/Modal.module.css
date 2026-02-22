@@ -2,7 +2,6 @@
    MODALS - Bilo Chess
    ══════════════════════════════════════════ */
 
-/* ── Overlay ── */
 .overlay {
   position: fixed;
   inset: 0;
@@ -15,7 +14,6 @@
   backdrop-filter: blur(4px);
 }
 
-/* ── Modal Box ── */
 .modal {
   background: #fff;
   border-radius: 24px;
@@ -33,7 +31,6 @@
   overflow-y: auto;
 }
 
-/* ── Close & Back buttons ── */
 .closeBtn {
   position: absolute;
   top: 18px;
@@ -73,7 +70,6 @@
   opacity: 1;
 }
 
-/* ── Modal Logo ── */
 .modalLogo {
   display: flex;
   justify-content: center;
@@ -86,7 +82,6 @@
   object-fit: contain;
 }
 
-/* ── Titles ── */
 .title {
   font-family: var(--font-display);
   font-size: 1.5rem;
@@ -103,7 +98,6 @@
   margin-bottom: 26px;
 }
 
-/* ── Google Button ── */
 .googleBtn {
   display: flex;
   align-items: center;
@@ -126,7 +120,6 @@
   opacity: 1;
 }
 
-/* ── Divider ── */
 .divider {
   display: flex;
   align-items: center;
@@ -149,7 +142,6 @@
   white-space: nowrap;
 }
 
-/* ── Form ── */
 .formGroup {
   margin-bottom: 14px;
 }
@@ -187,21 +179,66 @@
   gap: 12px;
 }
 
-/* ── Links ── */
+/* ── Forgot password link (sous chaque champ mot de passe) ── */
 .forgotLink {
   display: block;
   text-align: right;
-  margin-top: -6px;
-  margin-bottom: 14px;
+  margin-top: 6px;
   color: var(--text-primary);
   font-weight: 600;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   text-decoration: underline;
   text-underline-offset: 2px;
 }
 
 .forgotLink:hover {
-  opacity: 0.8;
+  opacity: 0.7;
+}
+
+/* ── Inline error/success (à côté du bouton ou de l'input) ── */
+.inlineError {
+  background: rgba(239, 68, 68, 0.08);
+  color: #dc2626;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 9px 14px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.inlineSuccess {
+  background: rgba(16, 185, 129, 0.08);
+  color: #059669;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 9px 14px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+/* ── Legacy (kept for verify modal) ── */
+.error {
+  background: rgba(239, 68, 68, 0.08);
+  color: #dc2626;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 14px;
+  text-align: center;
+}
+
+.success {
+  background: rgba(16, 185, 129, 0.08);
+  color: #059669;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 14px;
+  text-align: center;
 }
 
 /* ── Submit Button ── */
@@ -309,30 +346,6 @@
 .terms a {
   color: var(--text-primary);
   text-decoration: none;
-}
-
-/* ── Error message ── */
-.error {
-  background: rgba(239, 68, 68, 0.08);
-  color: #dc2626;
-  font-size: 0.82rem;
-  font-weight: 600;
-  padding: 10px 14px;
-  border-radius: var(--radius-sm);
-  margin-bottom: 14px;
-  text-align: center;
-}
-
-/* ── Success message ── */
-.success {
-  background: rgba(16, 185, 129, 0.08);
-  color: #059669;
-  font-size: 0.82rem;
-  font-weight: 600;
-  padding: 10px 14px;
-  border-radius: var(--radius-sm);
-  margin-bottom: 14px;
-  text-align: center;
 }
 
 /* ── Verify code inputs ── */

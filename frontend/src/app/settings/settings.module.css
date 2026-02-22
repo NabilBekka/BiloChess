@@ -1,23 +1,235 @@
-.container { max-width: 600px; margin: 0 auto; padding: 40px 24px; }
-.title { font-family: var(--font-display); font-size: 2rem; font-weight: 900; color: var(--text-primary); }
-.subtitle { color: var(--text-muted); font-size: 0.92rem; margin-top: 6px; margin-bottom: 32px; }
-.card { background: #fff; border-radius: var(--radius-xl); padding: 28px; box-shadow: var(--shadow-sm); border: 1px solid var(--border-light); margin-bottom: 20px; }
-.cardTitle { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; margin-bottom: 20px; }
-.infoRow { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--bg-tertiary); }
-.infoRow:last-child { border-bottom: none; }
-.label { font-size: 0.85rem; color: var(--text-muted); font-weight: 500; }
-.value { font-size: 0.85rem; font-weight: 600; color: var(--text-primary); }
-.formRow { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.formGroup { margin-bottom: 14px; }
-.formGroup label { display: block; font-size: 0.8rem; font-weight: 600; color: #777; margin-bottom: 6px; }
-.formGroup input { width: 100%; padding: 12px 14px; border: 2px solid #eee; border-radius: var(--radius-md); font-family: var(--font-body); font-size: 0.88rem; color: #333; background: var(--bg-secondary); outline: none; transition: all 0.2s; }
-.formGroup input:focus { border-color: var(--text-primary); background: #fff; }
-.divider { border: none; border-top: 1px solid var(--bg-tertiary); margin: 20px 0; }
-.submitBtn { width: 100%; padding: 14px; border-radius: 14px; background: var(--text-primary); font-size: 0.92rem; font-weight: 700; color: #fff; box-shadow: 0 4px 16px rgba(0,0,0,0.15); cursor: pointer; border: none; }
-.submitBtn:disabled { opacity: 0.6; }
-.dangerCard { border-color: rgba(220,38,38,0.15); }
-.dangerText { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px; line-height: 1.5; }
-.deleteBtn { width: 100%; padding: 14px; border-radius: 14px; background: #dc2626; font-size: 0.92rem; font-weight: 700; color: #fff; cursor: pointer; border: none; }
-.message { padding: 12px 16px; border-radius: var(--radius-md); font-size: 0.85rem; font-weight: 600; margin-bottom: 20px; text-align: center; }
-.messageError { background: rgba(239,68,68,0.08); color: #dc2626; }
-.messageSuccess { background: rgba(16,185,129,0.08); color: #059669; }
+/* ══════════════════════════════════════════
+   SETTINGS PAGE - Bilo Chess
+   ══════════════════════════════════════════ */
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.subtitle {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  margin-top: 4px;
+  margin-bottom: 32px;
+}
+
+/* ── Cards ── */
+.card {
+  background: #fff;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: 28px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.cardTitle {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+}
+
+/* ── Info rows ── */
+.infoRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #f3f3f3;
+}
+
+.infoRow:last-child {
+  border-bottom: none;
+}
+
+.label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #888;
+}
+
+.value {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* ── Verify email link (rouge, cliquable) ── */
+.verifyLink {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #dc2626;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.verifyLink:hover {
+  color: #b91c1c;
+  opacity: 1;
+}
+
+/* ── Forgot password link ── */
+.forgotLink {
+  display: block;
+  text-align: right;
+  margin-top: 6px;
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 0.78rem;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.forgotLink:hover {
+  opacity: 0.7;
+}
+
+/* ── Form ── */
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.formGroup {
+  margin-bottom: 16px;
+}
+
+.formGroup label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #777;
+  margin-bottom: 6px;
+}
+
+.formGroup input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 2px solid #eee;
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  color: #333;
+  background: var(--bg-secondary);
+  box-sizing: border-box;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.formGroup input:focus {
+  border-color: var(--text-primary);
+  background: #fff;
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid #f0f0f0;
+  margin: 20px 0;
+}
+
+/* ── Inline notifications (près du bouton) ── */
+.inlineError {
+  background: rgba(239, 68, 68, 0.08);
+  color: #dc2626;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 9px 14px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.inlineSuccess {
+  background: rgba(16, 185, 129, 0.08);
+  color: #059669;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 9px 14px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+/* ── Buttons ── */
+.submitBtn {
+  width: 100%;
+  padding: 14px;
+  border-radius: var(--radius-lg);
+  background: var(--text-primary);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s;
+}
+
+.submitBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  opacity: 1;
+}
+
+.submitBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ── Danger zone ── */
+.dangerCard {
+  border-color: rgba(220, 38, 38, 0.2);
+}
+
+.dangerText {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 18px;
+  line-height: 1.5;
+}
+
+.deleteBtn {
+  width: 100%;
+  padding: 14px;
+  border-radius: var(--radius-lg);
+  background: #dc2626;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #fff;
+  transition: all 0.2s;
+}
+
+.deleteBtn:hover {
+  background: #b91c1c;
+  opacity: 1;
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .formRow {
+    grid-template-columns: 1fr;
+  }
+
+  .container {
+    padding: 24px 16px 60px;
+  }
+}

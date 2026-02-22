@@ -5,45 +5,70 @@ import Image from 'next/image';
 import Header from '@/components/Header';
 import LoginModal from '@/components/LoginModal';
 import RegisterModal from '@/components/RegisterModal';
+import { useAuth } from '@/context/AuthContext';
 import styles from './page.module.css';
 
 export default function Home() {
+  const { user, loading, justLoggedOut, clearLogout } = useAuth();
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
 
-  const openRegister = () => {
-    setShowLogin(false);
-    setShowRegister(true);
-  };
+  const openRegister = () => { setShowLogin(false); setShowRegister(true); };
+  const openLogin = () => { setShowRegister(false); setShowLogin(true); };
+  const closeModals = () => { setShowLogin(false); setShowRegister(false); };
 
-  const openLogin = () => {
-    setShowRegister(false);
-    setShowLogin(true);
-  };
+  if (loading) return null;
 
-  const closeModals = () => {
-    setShowLogin(false);
-    setShowRegister(false);
-  };
+  // ── Écran de déconnexion ──
+  if (justLoggedOut) {
+    return (
+      <main>
+        <Header currentPage="home" />
+        <section className={styles.goodbyeScreen}>
+          <Image src="/logo.png" alt="Bilo Chess" width={200} height={160} className={styles.goodbyeLogo} />
+          <h1 className={styles.goodbyeTitle}>Merci pour votre visite, à bientôt !</h1>
+          <button className={styles.goodbyeBtn} onClick={clearLogout}>
+            Revenir à la page d'accueil
+          </button>
+        </section>
+      </main>
+    );
+  }
 
+  // ── Écran connecté ──
+  if (user) {
+    return (
+      <main>
+        <Header currentPage="home" />
+        <section className={styles.welcomeScreen}>
+          <Image src="/logo.png" alt="Bilo Chess" width={240} height={190} className={styles.welcomeLogo} />
+          <h1 className={styles.welcomeTitle}>Bienvenue {user.username}</h1>
+          <p className={styles.welcomeSub}>Prêt à progresser aux échecs ?</p>
+          <div className={styles.welcomeActions}>
+            <button className={styles.welcomeBtn}>
+              <span>📚</span> Mes cours
+            </button>
+            <button className={styles.welcomeBtn}>
+              <span>🧩</span> Puzzles
+            </button>
+            <button className={styles.welcomeBtn}>
+              <span>📊</span> Statistiques
+            </button>
+          </div>
+        </section>
+      </main>
+    );
+  }
+
+  // ── Accueil visiteur (non connecté) ──
   return (
     <main>
       <Header currentPage="home" />
 
-      {/* ── Hero ── */}
       <section className={styles.hero}>
         <div className={styles.heroContent}>
-          <Image
-            src="/logo.png"
-            alt="Bilo Chess"
-            width={400}
-            height={320}
-            className={styles.heroLogo}
-            priority
-          />
-
+          <Image src="/logo.png" alt="Bilo Chess" width={400} height={320} className={styles.heroLogo} priority />
           <h1 className={styles.heroTitle}>Crée ton profil pour t'améliorer aux échecs</h1>
-
           <button className={styles.heroCta} onClick={openRegister}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
               <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" />
@@ -51,7 +76,6 @@ export default function Home() {
             </svg>
             Je crée mon profil
           </button>
-
           <div className={styles.heroLoginLink}>
             <button className={styles.heroLoginBtn} onClick={openLogin}>
               J'ai déjà un compte
@@ -60,7 +84,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Features ── */}
       <section className={styles.features}>
         <div className={styles.featuresHeader}>
           <h2 className={styles.featuresTitle}>Pourquoi Bilo Chess ?</h2>
@@ -85,7 +108,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Stats Banner ── */}
       <section className={styles.statsBanner}>
         <div className={styles.statsGrid}>
           <div><div className={styles.statValue}>500+</div><div className={styles.statLabel}>Puzzles</div></div>
@@ -95,7 +117,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Footer ── */}
       <footer className={styles.footer}>
         <div className={styles.footerInner}>
           <div>
@@ -114,13 +135,8 @@ export default function Home() {
         </div>
       </footer>
 
-      {/* Modals from hero buttons */}
-      {showLogin && (
-        <LoginModal onClose={closeModals} onSwitchToRegister={openRegister} onGoogleRegister={() => {}} />
-      )}
-      {showRegister && (
-        <RegisterModal onClose={closeModals} onSwitchToLogin={openLogin} />
-      )}
+      {showLogin && <LoginModal onClose={closeModals} onSwitchToRegister={openRegister} onGoogleRegister={() => {}} />}
+      {showRegister && <RegisterModal onClose={closeModals} onSwitchToLogin={openLogin} />}
     </main>
   );
 }

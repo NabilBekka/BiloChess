@@ -25,12 +25,10 @@ export default function RegisterModal({ onClose, onSwitchToLogin }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-
     if (!pwChecks.length || !pwChecks.upper || !pwChecks.number || !pwChecks.special) {
       setError('Le mot de passe ne respecte pas les critères');
       return;
     }
-
     setLoading(true);
     const result = await register(form);
     if (result.success) {
@@ -55,8 +53,6 @@ export default function RegisterModal({ onClose, onSwitchToLogin }) {
 
         <h2 className={styles.title}>Créer un compte</h2>
         <p className={styles.subtitle}>Rejoignez la communauté Bilo Chess</p>
-
-        {error && <div className={styles.error}>{error}</div>}
 
         <form onSubmit={handleSubmit}>
           <div className={styles.formGroup}>
@@ -86,6 +82,9 @@ export default function RegisterModal({ onClose, onSwitchToLogin }) {
           <div className={styles.formGroup}>
             <label>Mot de passe</label>
             <input className={`${styles.formInput} ${styles.formInputSm}`} type="password" placeholder="Minimum 8 caractères" value={form.password} onChange={(e) => update('password', e.target.value)} required />
+            <button type="button" className={styles.forgotLink} onClick={() => { onClose(); window.location.href = '/forgot-password'; }}>
+              Mot de passe oublié ?
+            </button>
             <div className={styles.pwReqs}>
               <span className={`${styles.pwReq} ${pwChecks.length ? styles.pwReqPass : styles.pwReqFail}`}>8+ caractères</span>
               <span className={`${styles.pwReq} ${pwChecks.upper ? styles.pwReqPass : styles.pwReqFail}`}>1 majuscule</span>
@@ -94,7 +93,9 @@ export default function RegisterModal({ onClose, onSwitchToLogin }) {
             </div>
           </div>
 
-          <button type="submit" className={styles.submitBtn} style={{ marginTop: '8px' }} disabled={loading}>
+          {error && <div className={styles.inlineError}>{error}</div>}
+
+          <button type="submit" className={styles.submitBtn} disabled={loading}>
             {loading ? <span className={styles.spinner} /> : 'Créer mon compte'}
           </button>
         </form>

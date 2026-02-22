@@ -21,7 +21,6 @@ export default function Header({ currentPage = 'home' }) {
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef(null);
 
-  // Fermer le dropdown quand on clique ailleurs
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -32,7 +31,6 @@ export default function Header({ currentPage = 'home' }) {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Jours restants pour vérifier l'email
   const getDaysRemaining = () => {
     if (!user || user.emailVerified || !user.createdAt) return null;
     const createdDate = new Date(user.createdAt);
@@ -47,31 +45,10 @@ export default function Header({ currentPage = 'home' }) {
   const daysRemaining = getDaysRemaining();
   const isLastDay = daysRemaining === 1 || daysRemaining === 0;
 
-  const openLogin = () => {
-    setShowRegister(false);
-    setShowGoogleRegister(false);
-    setShowLogin(true);
-  };
-
-  const openRegister = () => {
-    setShowLogin(false);
-    setShowGoogleRegister(false);
-    setShowRegister(true);
-  };
-
-  const closeModals = () => {
-    setShowLogin(false);
-    setShowRegister(false);
-    setShowGoogleRegister(false);
-    setShowVerifyEmail(false);
-    setGoogleData(null);
-  };
-
-  const handleGoogleRegister = (data) => {
-    setShowLogin(false);
-    setGoogleData(data);
-    setShowGoogleRegister(true);
-  };
+  const openLogin = () => { setShowRegister(false); setShowGoogleRegister(false); setShowLogin(true); };
+  const openRegister = () => { setShowLogin(false); setShowGoogleRegister(false); setShowRegister(true); };
+  const closeModals = () => { setShowLogin(false); setShowRegister(false); setShowGoogleRegister(false); setShowVerifyEmail(false); setGoogleData(null); };
+  const handleGoogleRegister = (data) => { setShowLogin(false); setGoogleData(data); setShowGoogleRegister(true); };
 
   const handleLogout = () => {
     setShowDropdown(false);
@@ -79,10 +56,7 @@ export default function Header({ currentPage = 'home' }) {
     router.push('/');
   };
 
-  const handleSettings = () => {
-    setShowDropdown(false);
-    router.push('/settings');
-  };
+  const handleSettings = () => { setShowDropdown(false); router.push('/settings'); };
 
   const getInitials = () => {
     if (!user) return '';
@@ -94,30 +68,15 @@ export default function Header({ currentPage = 'home' }) {
   return (
     <>
       <header className={styles.header}>
-        {/* Logo à gauche */}
         <div className={styles.logoLink} onClick={() => router.push('/')}>
-          <Image
-            src="/logo.png"
-            alt="Bilo Chess"
-            width={120}
-            height={46}
-            className={styles.logoImage}
-            priority
-          />
+          <Image src="/logo.png" alt="Bilo Chess" width={120} height={46} className={styles.logoImage} priority />
         </div>
 
-        {/* Droite: Nav + Profil */}
         <div className={styles.headerRight}>
-          <button
-            className={`${styles.navLink} ${currentPage === 'home' ? styles.navLinkActive : ''}`}
-            onClick={() => router.push('/')}
-          >
+          <button className={`${styles.navLink} ${currentPage === 'home' ? styles.navLinkActive : ''}`} onClick={() => router.push('/')}>
             Accueil
           </button>
-          <button
-            className={`${styles.navLink} ${currentPage === 'about' ? styles.navLinkActive : ''}`}
-            onClick={() => router.push('/about')}
-          >
+          <button className={`${styles.navLink} ${currentPage === 'about' ? styles.navLinkActive : ''}`} onClick={() => router.push('/about')}>
             À propos
           </button>
 
@@ -125,7 +84,6 @@ export default function Header({ currentPage = 'home' }) {
 
           {user ? (
             <div className={styles.userSection} ref={dropdownRef}>
-              {/* Alerte vérification email */}
               {!user.emailVerified && daysRemaining !== null && (
                 <button
                   className={`${styles.verifyAlert} ${isLastDay ? styles.verifyAlertUrgent : ''}`}
@@ -136,8 +94,6 @@ export default function Header({ currentPage = 'home' }) {
                     : `${daysRemaining} jour${daysRemaining !== 1 ? 's' : ''} pour vérifier`}
                 </button>
               )}
-
-              <span className={styles.greeting}>Bonjour {user.username}</span>
 
               <button className={styles.avatarBtn} onClick={() => setShowDropdown(!showDropdown)}>
                 <div className={styles.avatar}>{getInitials()}</div>
@@ -194,29 +150,10 @@ export default function Header({ currentPage = 'home' }) {
         </div>
       </header>
 
-      {/* Modals */}
-      {showLogin && (
-        <LoginModal
-          onClose={closeModals}
-          onSwitchToRegister={openRegister}
-          onGoogleRegister={handleGoogleRegister}
-        />
-      )}
-      {showRegister && (
-        <RegisterModal
-          onClose={closeModals}
-          onSwitchToLogin={openLogin}
-        />
-      )}
-      {showGoogleRegister && googleData && (
-        <GoogleRegisterModal
-          onClose={closeModals}
-          googleData={googleData}
-        />
-      )}
-      {showVerifyEmail && (
-        <VerifyEmailModal onClose={closeModals} />
-      )}
+      {showLogin && <LoginModal onClose={closeModals} onSwitchToRegister={openRegister} onGoogleRegister={handleGoogleRegister} />}
+      {showRegister && <RegisterModal onClose={closeModals} onSwitchToLogin={openLogin} />}
+      {showGoogleRegister && googleData && <GoogleRegisterModal onClose={closeModals} googleData={googleData} />}
+      {showVerifyEmail && <VerifyEmailModal onClose={closeModals} />}
     </>
   );
 }
